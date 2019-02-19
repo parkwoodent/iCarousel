@@ -936,9 +936,19 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     _itemWidth = [_delegate carouselItemWidth:self] ?: _itemWidth;
     if (_numberOfItems > 0)
     {
-        if ([_itemViews count] == 0)
+        NSUInteger const itemViewsCount = _itemViews.count;
+        if (itemViewsCount == 0)
         {
             [self loadViewAtIndex:0];
+        }
+        else
+        {
+            for (NSUInteger viewIndex = 0;
+                 viewIndex < itemViewsCount;
+                 viewIndex++)
+            {
+                [self loadViewAtIndex:viewIndex];
+            }
         }
     }
     else if (_numberOfPlaceholders > 0)
