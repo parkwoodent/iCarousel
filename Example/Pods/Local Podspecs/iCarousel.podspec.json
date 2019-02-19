@@ -1,0 +1,22 @@
+{
+  "name": "iCarousel",
+  "version": "0.1.0",
+  "summary": "A short description of iCarousel.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Benjamin Maer/iCarousel",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Benjamin Maer": "BenjaminMaer@parkwood-ent.com"
+  },
+  "source": {
+    "git": "https://github.com/Benjamin Maer/iCarousel.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "iCarousel/Classes/**/*"
+}

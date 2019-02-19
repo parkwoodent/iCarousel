@@ -1,0 +1,16 @@
+PODS:
+  - iCarousel (0.1.0)
+
+DEPENDENCIES:
+  - iCarousel (from `../`)
+
+EXTERNAL SOURCES:
+  iCarousel:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  iCarousel: 533ccb350eee008b917c5704b5b361657d044019
+
+PODFILE CHECKSUM: 3632322b68ca0e7da4cee029635a5f49e436f1ab
+
+COCOAPODS: 1.5.3

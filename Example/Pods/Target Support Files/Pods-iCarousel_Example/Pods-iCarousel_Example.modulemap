@@ -1,0 +1,6 @@
+framework module Pods_iCarousel_Example {
+  umbrella header "Pods-iCarousel_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
