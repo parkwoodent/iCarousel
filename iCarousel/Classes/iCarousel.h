@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray *indexesForVisibleItems;
 @property (nonatomic, readonly) NSInteger numberOfVisibleItems;
 @property (nonatomic, strong, readonly) NSArray *visibleItemViews;
-@property (nonatomic, assign) CGFloat itemWidth;
+@property (nonatomic, assign) CGSize itemSize;
 @property (nonatomic, strong, readonly) UIView *contentView;
 @property (nonatomic, readonly) CGFloat toggle;
 @property (nonatomic, assign) CGFloat autoscroll;

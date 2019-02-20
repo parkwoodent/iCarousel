@@ -38,7 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		07336C37BD573AA14A68F54EE1204B79 /* iCarousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = iCarousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07336C37BD573AA14A68F54EE1204B79 /* iCarousel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = iCarousel.framework; path = iCarousel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1263C1AC06F7F5F00B44C71FBDF5FAAC /* Pods-iCarousel_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iCarousel_Tests.modulemap"; sourceTree = "<group>"; };
 		1DE82555DBF394D01A9D065909ADD8CE /* Pods-iCarousel_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iCarousel_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		20A82F7491BB99DF7C5921D4813D1B3F /* iCarousel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = iCarousel.h; path = iCarousel/Classes/iCarousel.h; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		2A2D9CB3ABA8C30152B1085CA41C1068 /* iCarousel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iCarousel-umbrella.h"; sourceTree = "<group>"; };
 		35FEDE407F601F6FB9A5B7DC69B195FC /* Pods-iCarousel_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iCarousel_Example-Info.plist"; sourceTree = "<group>"; };
 		3C087A202C006A215DC94DAE7FF01854 /* iCarousel-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "iCarousel-prefix.pch"; sourceTree = "<group>"; };
-		4453F9C4EDEA762BF46B2759D31DD74A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		4453F9C4EDEA762BF46B2759D31DD74A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		45D82D692487920BDF2CA712B0FD37F8 /* iCarousel-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "iCarousel-Info.plist"; sourceTree = "<group>"; };
 		4864FD2F958DF67E1E09515129D3462A /* Pods-iCarousel_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iCarousel_Example-frameworks.sh"; sourceTree = "<group>"; };
 		4A256B6872E5953C79789D155D63CD71 /* iCarousel.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = iCarousel.xcconfig; sourceTree = "<group>"; };
@@ -59,17 +59,17 @@
 		7CBCD49485CD3ECD4597208218108BCD /* Pods-iCarousel_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iCarousel_Example-dummy.m"; sourceTree = "<group>"; };
 		84DDF2AF219273C33D0F47CFB80FFA3B /* Pods-iCarousel_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iCarousel_Example.modulemap"; sourceTree = "<group>"; };
 		87232D11BB89CE509FC22A7D17D902F0 /* Pods-iCarousel_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iCarousel_Example.release.xcconfig"; sourceTree = "<group>"; };
-		99011FAB928F2CA7D4FCD1BF5CC640A3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		ABBDECBFCC592B4513BACBBE6FC868F7 /* Pods_iCarousel_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iCarousel_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		99011FAB928F2CA7D4FCD1BF5CC640A3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		ABBDECBFCC592B4513BACBBE6FC868F7 /* Pods_iCarousel_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iCarousel_Example.framework; path = "Pods-iCarousel_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE6F9ABEC5CFF4422F0B57E3D34A8C2 /* Pods-iCarousel_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iCarousel_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BCA39EB96040B8B335C6208EB3F3ABF5 /* Pods-iCarousel_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iCarousel_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		BCD9A58868B7701C4831BFEDECCE732F /* Pods_iCarousel_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iCarousel_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCD9A58868B7701C4831BFEDECCE732F /* Pods_iCarousel_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iCarousel_Tests.framework; path = "Pods-iCarousel_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF9C9FB8A994322DF08AE46911F9E8A5 /* Pods-iCarousel_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iCarousel_Example-umbrella.h"; sourceTree = "<group>"; };
 		C421F35BE5F387B4A121B0405C6F8AA0 /* Pods-iCarousel_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iCarousel_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		CB4607EFCA7C5F75397649E792E2AFCB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		D8F72B03D1112BE3EB8F9F78FEC1B291 /* Pods-iCarousel_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iCarousel_Tests-dummy.m"; sourceTree = "<group>"; };
-		E66DA70C85E9C2FC02FA3307FC5571A2 /* iCarousel.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = iCarousel.podspec; sourceTree = "<group>"; tabWidth = 2; };
+		E66DA70C85E9C2FC02FA3307FC5571A2 /* iCarousel.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = iCarousel.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		F4401EC6BDD9A5D4072239EC93F9552B /* iCarousel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = iCarousel.m; path = iCarousel/Classes/iCarousel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -460,7 +460,8 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

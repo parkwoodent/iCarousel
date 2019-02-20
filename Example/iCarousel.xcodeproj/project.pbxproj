@@ -24,6 +24,7 @@
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		C00DB9158183F7660B5F4CB7 /* Pods_iCarousel_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2725A4A54EE13A0AD62DF5 /* Pods_iCarousel_Tests.framework */; };
+		CECE9532221DE3A300B8AF09 /* ICCarouselContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CECE9531221DE3A300B8AF09 /* ICCarouselContainerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,7 @@
 /* Begin PBXFileReference section */
 		187B0B55C20C5977D0148B7C /* Pods-iCarousel_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iCarousel_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iCarousel_Example/Pods-iCarousel_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		317B909FC0F636C8515BE48D /* Pods-iCarousel_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iCarousel_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-iCarousel_Example/Pods-iCarousel_Example.release.xcconfig"; sourceTree = "<group>"; };
-		31ABF00813A55CDF5433206D /* iCarousel.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = iCarousel.podspec; path = ../iCarousel.podspec; sourceTree = "<group>"; };
+		31ABF00813A55CDF5433206D /* iCarousel.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iCarousel.podspec; path = ../iCarousel.podspec; sourceTree = "<group>"; };
 		5AE3EB91FD6E48A1182D7C30 /* Pods_iCarousel_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iCarousel_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58A195388D20070C39A /* iCarousel_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCarousel_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,9 +64,11 @@
 		6CE796FE09FBC5D1F5F21DBF /* Pods-iCarousel_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iCarousel_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iCarousel_Tests/Pods-iCarousel_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BF91474C8965D8625AB5EDF0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		C49F3005959FC2BC062FAEAF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		BF91474C8965D8625AB5EDF0 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		C49F3005959FC2BC062FAEAF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C5D7EF205B638959B508BA7A /* Pods-iCarousel_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iCarousel_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iCarousel_Tests/Pods-iCarousel_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		CECE9530221DE3A300B8AF09 /* ICCarouselContainerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ICCarouselContainerView.h; sourceTree = "<group>"; };
+		CECE9531221DE3A300B8AF09 /* ICCarouselContainerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ICCarouselContainerView.m; sourceTree = "<group>"; };
 		DC2725A4A54EE13A0AD62DF5 /* Pods_iCarousel_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iCarousel_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -134,11 +137,13 @@
 			children = (
 				6003F59C195388D20070C39A /* ICAppDelegate.h */,
 				6003F59D195388D20070C39A /* ICAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
+				CECE9530221DE3A300B8AF09 /* ICCarouselContainerView.h */,
+				CECE9531221DE3A300B8AF09 /* ICCarouselContainerView.m */,
 				6003F5A5195388D20070C39A /* ICViewController.h */,
 				6003F5A6195388D20070C39A /* ICViewController.m */,
-				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
+				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
+				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
 			name = "Example for iCarousel";
@@ -355,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECE9532221DE3A300B8AF09 /* ICCarouselContainerView.m in Sources */,
 				6003F59E195388D20070C39A /* ICAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* ICViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

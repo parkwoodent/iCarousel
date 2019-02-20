@@ -89,7 +89,6 @@
 - (BOOL)carousel:(__unused iCarousel *)carousel shouldSelectItemAtIndex:(__unused NSInteger)index { return YES; }
 - (void)carousel:(__unused iCarousel *)carousel didSelectItemAtIndex:(__unused NSInteger)index {}
 
-- (CGFloat)carouselItemWidth:(__unused iCarousel *)carousel { return 0; }
 - (CATransform3D)carousel:(__unused iCarousel *)carousel
    itemTransformForOffset:(__unused CGFloat)offset
             baseTransform:(CATransform3D)transform { return transform; }
@@ -103,7 +102,7 @@
 @interface iCarousel ()
 
 @property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) NSMutableDictionary *itemViews;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber*,UIView*>* itemViews;
 @property (nonatomic, strong) NSMutableSet *itemViewPool;
 @property (nonatomic, strong) NSMutableSet *placeholderViewPool;
 @property (nonatomic, assign) CGFloat previousScrollOffset;
@@ -129,9 +128,15 @@
 NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *self);
 
 #pragma mark - containerView
--(CGSize)containerView_frame_size_from_viewSize:(CGSize)viewSize;
+-(CGSize)containerView_frame_size;
+
+#pragma mark - itemViews
+-(void)itemViews_and_containers_frames_update;
 
 @end
+
+
+
 
 
 @implementation iCarousel
@@ -522,11 +527,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             if (_vertical)
             {
-                return CATransform3DTranslate(transform, 0.0, offset * _itemWidth * spacing, 0.0);
+                return CATransform3DTranslate(transform, 0.0, offset * self.itemSize.height * spacing, 0.0);
             }
             else
             {
-                return CATransform3DTranslate(transform, offset * _itemWidth * spacing, 0.0, 0.0);
+                return CATransform3DTranslate(transform, offset * self.itemSize.width * spacing, 0.0, 0.0);
             }
         }
         case iCarouselTypeRotary:
@@ -535,7 +540,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             CGFloat count = [self circularCarouselItemCount];
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat arc = [self valueForOption:iCarouselOptionArc withDefault:M_PI * 2.0];
-            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:MAX(_itemWidth * spacing / 2.0, _itemWidth * spacing / 2.0 / tan(arc/2.0/count))];
+            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:MAX(self.itemSize.width * spacing / 2.0, self.itemSize.width * spacing / 2.0 / tan(arc/2.0/count))];
             CGFloat angle = [self valueForOption:iCarouselOptionAngle withDefault:offset / count * arc];
             
             if (_type == iCarouselTypeInvertedRotary)
@@ -559,7 +564,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             CGFloat count = [self circularCarouselItemCount];
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat arc = [self valueForOption:iCarouselOptionArc withDefault:M_PI * 2.0];
-            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:MAX(0.01, _itemWidth * spacing / 2.0 / tan(arc/2.0/count))];
+            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:MAX(0.01, self.itemSize.width * spacing / 2.0 / tan(arc/2.0/count))];
             CGFloat angle = [self valueForOption:iCarouselOptionAngle withDefault:offset / count * arc];
             
             if (_type == iCarouselTypeInvertedCylinder)
@@ -587,7 +592,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             CGFloat count = [self circularCarouselItemCount];
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat arc = [self valueForOption:iCarouselOptionArc withDefault:M_PI * 2.0];
-            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:_itemWidth * spacing * count / arc];
+            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:self.itemSize.width * spacing * count / arc];
             CGFloat angle = [self valueForOption:iCarouselOptionAngle withDefault:arc / count];
             
             if (_type == iCarouselTypeInvertedWheel)
@@ -650,8 +655,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                 }
             }
             
-            CGFloat x = (clampedOffset * 0.5 * tilt + offset * spacing) * _itemWidth;
-            CGFloat z = fabs(clampedOffset) * -_itemWidth * 0.5;
+            CGFloat x = (clampedOffset * 0.5 * tilt + offset * spacing) * self.itemSize.width;
+            CGFloat z = fabs(clampedOffset) * -self.itemSize.width * 0.5;
             
             if (_vertical)
             {
@@ -686,11 +691,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                 offset = -offset;
                 
 #endif
-                return CATransform3DTranslate(transform, 0.0, offset * _itemWidth * tilt, offset * _itemWidth * spacing);
+                return CATransform3DTranslate(transform, 0.0, offset * self.itemSize.height * tilt, offset * self.itemSize.height * spacing);
             }
             else
             {
-                return CATransform3DTranslate(transform, offset * _itemWidth * tilt, 0.0, offset * _itemWidth * spacing);
+                return CATransform3DTranslate(transform, offset * self.itemSize.width * tilt, 0.0, offset * self.itemSize.width * spacing);
             }
         }
     }
@@ -783,7 +788,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 - (UIView *)containView:(UIView *)view
 {
     UIView* const containerView = [[UIView alloc] initWithFrame:(CGRect){
-        .size   = [self containerView_frame_size_from_viewSize:view.bounds.size],
+        .size   = [self containerView_frame_size],
     }];
     
 #ifdef ICAROUSEL_MACOS
@@ -935,7 +940,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             //exact number required to fill screen
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat width = _vertical ? self.bounds.size.height: self.bounds.size.width;
-            CGFloat itemWidth = _itemWidth * spacing;
+            CGFloat itemWidth = (_vertical ? self.itemSize.height : self.itemSize.width) * spacing;
             _numberOfVisibleItems = ceil(width / itemWidth) + 2;
             break;
         }
@@ -945,7 +950,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             //exact number required to fill screen
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:0.25];
             CGFloat width = _vertical ? self.bounds.size.height: self.bounds.size.width;
-            CGFloat itemWidth = _itemWidth * spacing;
+            CGFloat itemWidth = (_vertical ? self.itemSize.height : self.itemSize.width) * spacing;
             _numberOfVisibleItems = ceil(width / itemWidth) + 2;
             break;
         }
@@ -970,8 +975,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             CGFloat count = [self circularCarouselItemCount];
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat arc = [self valueForOption:iCarouselOptionArc withDefault:M_PI * 2.0];
-            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:_itemWidth * spacing * count / arc];
-            if (radius - _itemWidth / 2.0 < MIN(self.bounds.size.width, self.bounds.size.height) / 2.0)
+            CGFloat radius = [self valueForOption:iCarouselOptionRadius withDefault:self.itemSize.width * spacing * count / arc];
+            if (radius - self.itemSize.width / 2.0 < MIN(self.bounds.size.width, self.bounds.size.height) / 2.0)
             {
                 _numberOfVisibleItems = count;
             }
@@ -1011,7 +1016,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
             //slightly arbitrary number, chosen for aesthetic reasons
             CGFloat spacing = [self valueForOption:iCarouselOptionSpacing withDefault:1.0];
             CGFloat width = _vertical ? self.bounds.size.height: self.bounds.size.width;
-            count = MIN(MAX_VISIBLE_ITEMS, MAX(12, ceil(width / (spacing * _itemWidth)) * M_PI));
+            count = MIN(MAX_VISIBLE_ITEMS, MAX(12, ceil(width / (spacing * (_vertical ? self.itemSize.height : self.itemSize.width))) * M_PI));
             count = MIN(_numberOfItems + _numberOfPlaceholdersToShow, count);
             break;
         }
@@ -1202,11 +1207,11 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         if(_vertical)
         {
             frame.size.width = view.frame.size.width;
-            frame.size.height = MIN(_itemWidth, view.frame.size.height);
+            frame.size.height = MIN(self.itemSize.height, view.frame.size.height);
         }
         else
         {
-            frame.size.width = MIN(_itemWidth, view.frame.size.width);
+            frame.size.width = MIN(self.itemSize.width, view.frame.size.width);
             frame.size.height = view.frame.size.height;
         }
         containerView.bounds = frame;
@@ -1867,7 +1872,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         [self startAnimation];
     }
     
-    [self loadUnloadViews];    
+    [self loadUnloadViews];
+    [self itemViews_and_containers_frames_update];
     [self transformItemViews];
     
     //notify delegate of offset change
@@ -2145,8 +2151,8 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
                                        _bounceDistance) / _bounceDistance;
                 }
                 
-                _startVelocity = -velocity * factor * _scrollSpeed / _itemWidth;
-                _scrollOffset -= (translation - _previousTranslation) * factor * _offsetMultiplier / _itemWidth;
+                _startVelocity = -velocity * factor * _scrollSpeed / (_vertical ? self.itemSize.height : self.itemSize.width);
+                _scrollOffset -= (translation - _previousTranslation) * factor * _offsetMultiplier / (_vertical ? self.itemSize.height : self.itemSize.width);
                 _previousTranslation = translation;
                 [self didScroll];
                 break;
@@ -2193,10 +2199,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         }
         
         NSTimeInterval thisTime = [theEvent timestamp];
-        _startVelocity = -(translation / (thisTime - _startTime)) * factor * _scrollSpeed / _itemWidth;
+        _startVelocity = -(translation / (thisTime - _startTime)) * factor * _scrollSpeed / (_vertical ? self.itemSize.height : self.itemSize.width);
         _startTime = thisTime;
         
-        _scrollOffset -= translation * factor * _offsetMultiplier / _itemWidth;
+        _scrollOffset -= translation * factor * _offsetMultiplier / (_vertical ? self.itemSize.height : self.itemSize.width);
         [self pushAnimationState:NO];
         [self didScroll];
         [self popAnimationState];
@@ -2313,14 +2319,14 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 #endif
 
-#pragma mark - itemWidth
--(void)setItemWidth:(CGFloat)itemWidth
+#pragma mark - itemSize
+-(void)setItemSize:(CGSize)itemSize
 {
-    if (self.itemWidth == itemWidth) {
+    if (CGSizeEqualToSize(itemSize, self.itemSize)) {
         return;
     }
     
-    _itemWidth = itemWidth;
+    _itemSize = itemSize;
     
     [self loadInitialView];
 }
@@ -2346,12 +2352,31 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 #pragma mark - containerView
--(CGSize)containerView_frame_size_from_viewSize:(CGSize)viewSize
+-(CGSize)containerView_frame_size
 {
-    return (CGSize){
-        .width = _vertical? viewSize.width: _itemWidth,
-        .height = _vertical? _itemWidth: viewSize.height,
-    };
+    return self.itemSize;
+}
+
+#pragma mark - itemViews
+-(void)itemViews_and_containers_frames_update
+{
+    for (UIView* itemView in self.itemViews.allValues)
+    {
+        UIView* const containerView = [itemView superview];
+        if (containerView == nil)
+        {
+            NSAssert(false, @"itemView %@ should have superview.",itemView);
+            continue;
+        }
+        
+        [containerView setBounds:(CGRect){
+            .size   = [self containerView_frame_size],
+        }];
+        
+        [itemView setFrame:(CGRect){
+            .size   = containerView.bounds.size,
+        }];
+    }
 }
 
 @end
