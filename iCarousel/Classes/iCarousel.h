@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray *indexesForVisibleItems;
 @property (nonatomic, readonly) NSInteger numberOfVisibleItems;
 @property (nonatomic, strong, readonly) NSArray *visibleItemViews;
-@property (nonatomic, readonly) CGFloat itemWidth;
+@property (nonatomic, assign) CGFloat itemWidth;
 @property (nonatomic, strong, readonly) UIView *contentView;
 @property (nonatomic, readonly) CGFloat toggle;
 @property (nonatomic, assign) CGFloat autoscroll;
@@ -191,7 +191,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)carousel:(iCarousel *)carousel shouldSelectItemAtIndex:(NSInteger)index;
 - (void)carousel:(iCarousel *)carousel didSelectItemAtIndex:(NSInteger)index;
 
-- (CGFloat)carouselItemWidth:(iCarousel *)carousel;
 - (CATransform3D)carousel:(iCarousel *)carousel itemTransformForOffset:(CGFloat)offset baseTransform:(CATransform3D)transform;
 - (CGFloat)carousel:(iCarousel *)carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value;
 

@@ -110,7 +110,6 @@
 @property (nonatomic, assign) NSInteger previousItemIndex;
 @property (nonatomic, assign) NSInteger numberOfPlaceholdersToShow;
 @property (nonatomic, assign) NSInteger numberOfVisibleItems;
-@property (nonatomic, assign) CGFloat itemWidth;
 @property (nonatomic, assign) CGFloat offsetMultiplier;
 @property (nonatomic, assign) CGFloat startOffset;
 @property (nonatomic, assign) CGFloat endOffset;
@@ -128,6 +127,9 @@
 @property (nonatomic, assign) NSTimeInterval toggleTime;
 
 NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *self);
+
+#pragma mark - containerView
+-(CGSize)containerView_frame_size_from_viewSize:(CGSize)viewSize;
 
 @end
 
@@ -780,17 +782,9 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (UIView *)containView:(UIView *)view
 {
-    //set item width
-    if (!_itemWidth)
-    {
-        _itemWidth = _vertical? view.bounds.size.height: view.bounds.size.width;
-    }
-    
-    //set container frame
-    CGRect frame = view.bounds;
-    frame.size.width = _vertical? frame.size.width: _itemWidth;
-    frame.size.height = _vertical? _itemWidth: frame.size.height;
-    UIView *containerView = [[UIView alloc] initWithFrame:frame];
+    UIView* const containerView = [[UIView alloc] initWithFrame:(CGRect){
+        .size   = [self containerView_frame_size_from_viewSize:view.bounds.size],
+    }];
     
 #ifdef ICAROUSEL_MACOS
 
@@ -800,10 +794,10 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 #endif
     
     //set view frame
-    frame = view.frame;
-    frame.origin.x = (containerView.bounds.size.width - frame.size.width) / 2.0;
-    frame.origin.y = (containerView.bounds.size.height - frame.size.height) / 2.0;
-    view.frame = frame;
+    CGRect const view_frame_new = (CGRect){
+        .size   = containerView.bounds.size,
+    };
+    view.frame = view_frame_new;
     [containerView addSubview:view];
     containerView.layer.opacity = 0;
     
@@ -928,35 +922,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
         NSInteger index = [number integerValue];
         UIView *view = _itemViews[number];
         [self transformItemView:view atIndex:index];
-    }
-}
-
-- (void)updateItemWidth
-{
-    _itemWidth = [_delegate carouselItemWidth:self] ?: _itemWidth;
-    if (_numberOfItems > 0)
-    {
-        NSUInteger const itemViewsCount = _itemViews.count;
-        if (itemViewsCount == 0)
-        {
-            [self loadViewAtIndex:0];
-        }
-        else
-        {
-            for (NSUInteger viewIndex = 0;
-                 viewIndex < itemViewsCount;
-                 viewIndex++)
-            {
-                [self loadViewAtIndex:viewIndex];
-            }
-        }
-    }
-    else if (_numberOfPlaceholders > 0)
-    {
-        if ([_itemViews count] == 0)
-        {
-            [self loadViewAtIndex:-1];
-        }
     }
 }
 
@@ -1101,9 +1066,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     //no placeholders on wrapped carousels
     _numberOfPlaceholdersToShow = _wrapEnabled? 0: _numberOfPlaceholders;
     
-    //set item width
-    [self updateItemWidth];
-    
     //update number of visible items
     [self updateNumberOfVisibleItems];
     
@@ -1217,6 +1179,7 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     
     if (view == nil)
     {
+        NSAssert(false, @"Should already have view");
         view = [[UIView alloc] init];
     }
     
@@ -1284,9 +1247,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 
 - (void)loadUnloadViews
 {
-    //set item width
-    [self updateItemWidth];
-    
     //update number of visible items
     [self updateNumberOfVisibleItems];
     
@@ -1594,11 +1554,6 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
     index = [self clampedIndex:index];
     [self insertView:nil atIndex:index];
     [self loadViewAtIndex:index];
-    
-    if (fabs(_itemWidth) < FLOAT_ERROR_MARGIN)
-    {
-        [self updateItemWidth];
-    }
     
     if (animated)
     {
@@ -2357,5 +2312,46 @@ NSComparisonResult compareViewDepth(UIView *view1, UIView *view2, iCarousel *sel
 }
 
 #endif
+
+#pragma mark - itemWidth
+-(void)setItemWidth:(CGFloat)itemWidth
+{
+    if (self.itemWidth == itemWidth) {
+        return;
+    }
+    
+    _itemWidth = itemWidth;
+    
+    [self loadInitialView];
+}
+
+#pragma mark - loadViews
+-(void)loadInitialView
+{
+    if (_numberOfItems > 0)
+    {
+        NSUInteger const itemViewsCount = _itemViews.count;
+        if (itemViewsCount == 0)
+        {
+            [self loadViewAtIndex:0];
+        }
+    }
+    else if (_numberOfPlaceholders > 0)
+    {
+        if ([_itemViews count] == 0)
+        {
+            [self loadViewAtIndex:-1];
+        }
+    }
+}
+
+#pragma mark - containerView
+-(CGSize)containerView_frame_size_from_viewSize:(CGSize)viewSize
+{
+    return (CGSize){
+        .width = _vertical? viewSize.width: _itemWidth,
+        .height = _vertical? _itemWidth: viewSize.height,
+    };
+}
 
 @end

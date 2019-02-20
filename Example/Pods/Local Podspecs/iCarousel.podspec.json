@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "summary": "A short description of iCarousel.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/Benjamin Maer/iCarousel",
+  "homepage": "https://github.com/parkwoodent/iCarousel",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,7 +12,7 @@
     "Benjamin Maer": "BenjaminMaer@parkwood-ent.com"
   },
   "source": {
-    "git": "https://github.com/Benjamin Maer/iCarousel.git",
+    "git": "https://github.com/parkwoodent/iCarousel.git",
     "tag": "0.1.0"
   },
   "platforms": {
