@@ -153,6 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)indexOfItemViewOrSubview:(UIView *)view;
 - (CGFloat)offsetForItemAtIndex:(NSInteger)index;
 - (nullable UIView *)itemViewAtPoint:(CGPoint)point;
+- (UIView *)currentItemView;
 
 - (void)removeItemAtIndex:(NSInteger)index animated:(BOOL)animated;
 - (void)insertItemAtIndex:(NSInteger)index animated:(BOOL)animated;
